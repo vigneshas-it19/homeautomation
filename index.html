@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HOME AUTOMATION</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #5AEBA7;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.content {
+        width: 300px;
+        height: 600px;
+        background-color: none;
+        position: absolute; /*Can also be `fixed`*/
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        /*Solves a problem in which the content is being cut when the div is smaller than its' wrapper:*/
+        max-width: 100%;
+        max-height: 100%;
+        overflow: auto;
+}
+</style>
+<script>
+
+function myFunction()
+{
+const database = firebase.database();
+const usersRef = database.ref();
+  
+  usersRef.on('value', snapshot => {
+    
+    var r = snapshot.child("/RED").val();
+
+    if(r=="1")
+	{document.getElementById("box1").checked = true;}
+    else
+	{document.getElementById("box1").checked = false;}
+    var g = snapshot.child("/GREEN").val();
+
+    if(g=="1")
+	{document.getElementById("box2").checked = true;}
+    else
+	{document.getElementById("box2").checked = false;}
+    var b = snapshot.child("/BLUE").val();
+
+    if(b=="1")
+	{document.getElementById("box3").checked = true;}
+    else
+	{document.getElementById("box3").checked = false;}
+});
+}
+function rcheckboxfunc()
+{
+const database = firebase.database();
+const usersRef = database.ref();
+  
+  var checkBox = document.getElementById("box1");
+  if (checkBox.checked == true){
+    usersRef.update({
+    RED : "1"
+  });
+  } else {
+    usersRef.update({
+    RED : "0"
+  });
+  }
+}
+function gcheckboxfunc()
+{
+const database = firebase.database();
+const usersRef = database.ref();
+  
+  var checkBox = document.getElementById("box2");
+  if (checkBox.checked == true){
+    usersRef.update({
+    GREEN : "1"
+  });
+  } else {
+    usersRef.update({
+    GREEN : "0"
+  });
+  }
+}
+function bcheckboxfunc()
+{
+const database = firebase.database();
+const usersRef = database.ref();
+  
+  var checkBox = document.getElementById("box3");
+  if (checkBox.checked == true){
+    usersRef.update({
+    BLUE : "1"
+  });
+  } else {
+    usersRef.update({
+    BLUE : "0"
+  });
+  }
+}
+</script>
+</head>
+<body onload="myFunction()">
+<div class="content">
+        
+    
+<center><h2>HOME AUTOMATION</h2></center>
+
+<center><h3>RED &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<label class="switch">
+  <input type="checkbox" id="box1" onclick="rcheckboxfunc()">
+  <span  class="slider round"></span>
+</label></h3></center>
+
+<center><h3>GREEN &nbsp;&nbsp;
+
+<label class="switch">
+  <input type="checkbox" id="box2" onclick="gcheckboxfunc()">
+  <span class="slider round"></span>
+</label></h3></center>
+
+<center><h3>BLUE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<label class="switch">
+  <input type="checkbox" id="box3" onclick="bcheckboxfunc()">
+  <span class="slider round"></span>
+</label></h3></center>
+</div>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyDz5YWaeAIqa1lkUOXbxA15bqBybQuQZvM",
+    authDomain: "homeautomation-89d0d.firebaseapp.com",
+    databaseURL: "https://homeautomation-89d0d.firebaseio.com",
+    projectId: "homeautomation-89d0d",
+    storageBucket: "homeautomation-89d0d.appspot.com",
+    messagingSenderId: "381893190508",
+    appId: "1:381893190508:web:aa503f699e50ea80f90949",
+    measurementId: "G-W33MEQNYQY"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+</body>
+</html> 
