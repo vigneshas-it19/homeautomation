@@ -108,7 +108,30 @@ const usersRef = database.ref();
 	{document.getElementById("box3").checked = true;}
     else
 	{document.getElementById("box3").checked = false;}
+
+    var h = snapshot.child("/HOLDER").val();
+
+    if(b=="1")
+	{document.getElementById("box4").checked = true;}
+    else
+	{document.getElementById("box4").checked = false;}
 });
+}
+function rcheckboxfunc()
+{
+const database = firebase.database();
+const usersRef = database.ref();
+  
+  var checkBox = document.getElementById("box4");
+  if (checkBox.checked == true){
+    usersRef.update({
+    HOLDER : "1"
+  });
+  } else {
+    usersRef.update({
+    HOLDER : "0"
+  });
+  }
 }
 function rcheckboxfunc()
 {
@@ -184,6 +207,13 @@ const usersRef = database.ref();
 
 <label class="switch">
   <input type="checkbox" id="box3" onclick="bcheckboxfunc()">
+  <span class="slider round"></span>
+</label></h3></center>
+	
+center><h3>HOLDER &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<label class="switch">
+  <input type="checkbox" id="box4" onclick="hcheckboxfunc()">
   <span class="slider round"></span>
 </label></h3></center>
 </div>
